@@ -2,6 +2,8 @@ import $ from 'jquery';
 
 import store from './store';
 
+import api from './api'; 
+
 const generateItemElement = function (item) {
   let itemTitle = `<span class="shopping-item shopping-item__checked">${item.name}</span>`;
   if (!item.checked) {
@@ -46,12 +48,19 @@ const render = function () {
 };
 
 const handleNewItemSubmit = function () {
+  
   $('#js-shopping-list-form').submit(function (event) {
     event.preventDefault();
     const newItemName = $('.js-shopping-list-entry').val();
     $('.js-shopping-list-entry').val('');
-    store.addItem(newItemName);
-    render();
+    
+    
+    api.createItem(newItemName)
+      .then(res => res.json())
+      .then((newItem)=> {
+        store.addItem(newItem);
+        render();
+      });
   });
 };
 
