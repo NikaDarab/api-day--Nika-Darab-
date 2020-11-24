@@ -76,9 +76,12 @@ const handleDeleteItemClicked = function () {
     // get the index of the item in store.items
     const id = getItemIdFromElement(event.currentTarget);
     // delete the item
-    store.findAndDelete(id);
-    // render the updated shopping list
-    render();
+    api.deleteItem(id)
+      .then(res => res.json())
+      .then(()=>{
+        store.findAndDelete(id);
+        render();
+      });
   });
 };
 
@@ -106,8 +109,6 @@ const handleItemCheckClicked = function () {
         store.findAndUpdate(id,{checked: !item.checked});
         render();
       });
-
-    
   });
 };
 

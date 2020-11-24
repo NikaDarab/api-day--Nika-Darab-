@@ -18,10 +18,19 @@ const findAndUpdate = function (id,newData) {
   return merge;
 };
 
+const findAndDelete= function (id){
+  this.item = this.items.filter(currentItem => currentItem.id !== id);
+};
+
+const toggleCheckedFilter = function () {
+  this.hideCheckedItems = !this.hideCheckedItems;
+};
 export default {
   items,
   hideCheckeditems,
   findById,
   addItem,
   findAndUpdate,
+  findAndDelete,
+  toggleCheckedFilter,
 };
